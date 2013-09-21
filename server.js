@@ -1,7 +1,7 @@
 #!usr/bin/env node
 
 var chatServer = require('./lib/chat_server');
-charServer.listen(server);
+chatServer.listen(server);
 
 var http = require('http');
 var fs = require('fs');
@@ -31,12 +31,13 @@ function serverStatic(response, cache, absPath) {
 			send404(response);
 		    } else {
 			cache[absPath]=data;
-			sendFile(response, absPath, data);}
+		        sendFile(response, absPath, data);
+		    }
 		});
 	    } else {
 		send404(response);
 	    }
-	 });
+	});
      }
 }
 
@@ -46,7 +47,7 @@ var server = http.createServer(function(request, response) {
     if (request.url == '/') {
 	filePath = 'public/index.html';
     } else {
-	filePath = 'public' + request.url;
+	filePath = request.url;
     }
 
     var absPath = './' + filePath;
@@ -56,3 +57,5 @@ var server = http.createServer(function(request, response) {
 server.listen(8080, function(){
     console.log('Server listening on port 8080.');
 });
+
+
